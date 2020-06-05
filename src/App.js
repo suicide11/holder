@@ -1,26 +1,45 @@
-import React from 'react';
+/*global chrome*/
+import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import 'antd/dist/antd.css'
+import Home from './pages/home'
+import AddHolder from './pages/addholder'
+import Auth from './pages/auth'
+class App extends Component {
+  state = {
+    token: false,
+    addHolder: false
+  }
+  componentDidMount() {
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    chrome.storage.sync.get(['token'], function (items) {
+      if (items) {
+        this.setState({
+          token: items.token
+        })
+      }
+    }.bind(this));
+
+    
+  }
+
+  addHolder = (data) => {
+    this.setState({
+      addHolder: data
+    })
+  }
+
+  render() {
+    return (
+      <div className="application-body">
+        {this.state.token && !this.state.addHolder && <Home addHolder={this.addHolder} token={this.state.token} />}
+        {this.state.addHolder && <AddHolder addHolder={this.addHolder} token={this.state.token} />}
+        {!this.state.token && <Auth />}
+      </div>
+    );
+  }
+
 }
 
 export default App;
