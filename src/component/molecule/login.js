@@ -10,16 +10,12 @@ class Login extends Component {
         console.log('Success:', values);
         await LoginAPI(values).then((response)=>{
             console.log(response)
-            alert(response)
             chrome.storage.sync.set({'token': response.data.token}, function() {
                 console.log('Settings saved');
             });
+            this.props.handleToken(response.data.token)
         })
-        chrome.storage.sync.get(['token'], function(items) {
-            this.setState({
-                token:items.token
-            })
-          }.bind(this));
+
     };
 
     onFinishFailed = errorInfo => {
@@ -28,7 +24,6 @@ class Login extends Component {
     render() {
         return(
             <div style={{textAlign:"center"}} >
-                <b>{this.state.token}</b>
                 <Form
                     // {...layout}
                     name="basic"

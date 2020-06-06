@@ -2,22 +2,6 @@ import React,{Component} from 'react'
 import { Card } from 'antd';
 import Register from '../component/molecule/register'
 import Login from '../component/molecule/login'
-const tabListNoTitle = [
-  {
-    key: 'login',
-    tab: 'Login',
-  },
-  {
-    key: 'register',
-    tab: 'Register',
-  },
-];
-
-const contentListNoTitle = {
-  login: <div><Login/></div>,
-  register: <Register/>,
-
-};
 
 
 class Auth extends React.Component {
@@ -32,6 +16,23 @@ class Auth extends React.Component {
     };
   
     render() {
+      const tabListNoTitle = [
+        {
+          key: 'login',
+          tab: 'Login',
+        },
+        {
+          key: 'register',
+          tab: 'Register',
+        },
+      ];
+      
+      const contentListNoTitle = {
+        login: <div><Login handleToken={this.props.handleToken} /></div>,
+        register: <Register handleToken={this.props.handleToken}/>,
+      
+      };
+      
       return (
         <div>
           <Card

@@ -2,7 +2,7 @@ var express = require("express");
 var router = express.Router();
 const { check, validationResult } = require("express-validator");
 const { signout, signup, signin, isSignedIn, sendVerificationMail, verifyMail } = require("../controllers/auth");
-const {addHolder, getHolder} = require("../controllers/holder")
+const {addHolder, getHolder, deleteHolder} = require("../controllers/holder")
 
 router.post(
   "/add", 
@@ -21,5 +21,10 @@ router.get(
   getHolder
 )
 
+router.delete(
+  "/:id",
+  isSignedIn,
+  deleteHolder
+)
 
 module.exports = router;

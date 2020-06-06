@@ -1,3 +1,4 @@
+/*global chrome*/
 import React,{Component} from 'react' 
 import { Form, Input, Button, Checkbox } from 'antd';
 import {RegisterAPI} from '../../service/auth' 
@@ -6,6 +7,10 @@ class Register extends Component {
         console.log('Success:', values);
         RegisterAPI(values).then((response)=>{
             console.log(response)
+            chrome.storage.sync.set({'token': response.data.token}, function() {
+                console.log('Settings saved');
+            });
+            this.props.handleToken(response.data.token)
         })
     };
 

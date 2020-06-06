@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './holder.css'
 import { Input, Button } from 'antd';
+import {DeleteHolderAPI} from '../../service/holder'
+import { DeleteFilled  } from '@ant-design/icons';
 const Cryptr = require('cryptr');
 class Holder extends Component {
     state={
@@ -27,6 +29,11 @@ class Holder extends Component {
             })
         }
     }
+    handleDelete =() =>{
+        DeleteHolderAPI(this.props.data._id,this.props.token).then(function(response){
+            this.props.updateHolder(this.props.token)
+        }.bind(this))
+    }
     render() {
         return (
             <div className="holder">
@@ -50,6 +57,9 @@ class Holder extends Component {
                     {
                         this.state.error && <b style={{color:"red"}}>{this.state.error}</b>
                     }
+                    <br></br>
+                    {(this.state.unlocked || !this.props.data.encrypt ) && 
+                    <DeleteFilled onClick={()=>this.handleDelete()} style={{color:"red", cursor:"pointer"}} />}
                 </center>
                 <div className="footer-holder">
                     {this.props.data.createdAt}

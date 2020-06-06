@@ -31,3 +31,13 @@ exports.getHolder = (req, res) => {
         })
     })
 }
+
+
+exports.deleteHolder = (req, res)=> {
+    console.log(req.params)
+    Holder.deleteOne({_id:ObjectId(req.params.id)}).then((response)=>{
+        return res.status(200).json({
+            message:"Successfully deleted"
+        })
+    })
+}

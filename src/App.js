@@ -29,13 +29,18 @@ class App extends Component {
       addHolder: data
     })
   }
+  handleToken=(data)=>{
+    this.setState({
+      token:data
+    })
+  }
 
   render() {
     return (
       <div className="application-body">
         {this.state.token && !this.state.addHolder && <Home addHolder={this.addHolder} token={this.state.token} />}
         {this.state.addHolder && <AddHolder addHolder={this.addHolder} token={this.state.token} />}
-        {!this.state.token && <Auth />}
+        {!this.state.token && <Auth handleToken={this.handleToken} />}
       </div>
     );
   }

@@ -14,13 +14,20 @@ class Home extends Component {
             })
         })
     }
+    updateHolder = (token)=>{
+        GetHolderAPI(this.props.token).then((response)=>{
+            this.setState({
+                data:response.data.holder
+            })
+        })
+    }
     render() {
         return (
             <div style={{height:"100%"}}>
                 <div className="home-body" style={{ width: "100%" }} >
                     {this.state.data.length>0 ? (
                         this.state.data.map(val=>
-                            <Holder data={val} />
+                            <Holder updateHolder={this.updateHolder} data={val} token={this.props.token}/>
                             )
                     ):(
                         <b> No Holders yet </b>
