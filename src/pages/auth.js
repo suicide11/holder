@@ -28,8 +28,8 @@ class Auth extends React.Component {
       ];
       
       const contentListNoTitle = {
-        login: <div><Login handleToken={this.props.handleToken} /></div>,
-        register: <Register handleToken={this.props.handleToken}/>,
+        login: <div><Login handleLoader={this.props.handleLoader} handleToken={this.props.handleToken} /></div>,
+        register: <Register handleLoader={this.props.handleLoader}  handleToken={this.props.handleToken}/>,
       
       };
       

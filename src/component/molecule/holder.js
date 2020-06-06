@@ -16,12 +16,14 @@ class Holder extends Component {
         })
     }
     handleSubmit = async e =>{
+        this.props.handleLoader(true)
         const cryptr = new Cryptr(this.state.secret);
         let data = await cryptr.decrypt(this.props.data.body)
         if(data) {
             this.setState({
                 unlocked:data
             })
+            this.props.handleLoader(false)
         }
         else{
             this.setState({
@@ -30,8 +32,10 @@ class Holder extends Component {
         }
     }
     handleDelete =() =>{
+        this.props.handleLoader(true)
         DeleteHolderAPI(this.props.data._id,this.props.token).then(function(response){
             this.props.updateHolder(this.props.token)
+            this.props.handleLoader(false)
         }.bind(this))
     }
     render() {

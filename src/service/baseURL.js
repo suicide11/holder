@@ -1,1 +1,1 @@
-exports.baseURL = "http://localhost:8000/api/v1/"
+exports.baseURL = "http://52.66.184.246:8000/api/v1/"

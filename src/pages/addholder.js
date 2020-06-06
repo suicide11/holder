@@ -8,22 +8,25 @@ class AddHolder extends Component {
         encrypt : false
     }
     onFinish = async values => {
+        await this.props.handleLoader(true)
         console.log('Success:', values);
         if(values.encrypt == true) {
             const cryptr = new Cryptr(values.key);
             let data = await cryptr.encrypt(values.body)
             values.body = data
             // alert(this.props.token)
-            AddHolderAPI(values, this.props.token).then((response)=>{
+            AddHolderAPI(values, this.props.token).then(function(response){
                 console.log(response)
                 this.props.addHolder(false)
-            })
+                this.props.handleLoader(false)
+            }.bind(this))
         }
         else {
-            AddHolderAPI(values, this.props.token).then((response)=>{
+            AddHolderAPI(values, this.props.token).then(function(response){
                 console.log(response)
                 this.props.addHolder(false)
-            })
+                this.props.handleLoader(false)
+            }.bind(this))
         }
     };
 

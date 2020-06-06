@@ -8,17 +8,21 @@ class Home extends Component {
         data:[]
     }
     componentDidMount() {
+        this.props.handleLoader(true)
         GetHolderAPI(this.props.token).then((response)=>{
             this.setState({
                 data:response.data.holder
             })
+            this.props.handleLoader(false)
         })
     }
     updateHolder = (token)=>{
+        this.props.handleLoader(true)
         GetHolderAPI(this.props.token).then((response)=>{
             this.setState({
                 data:response.data.holder
             })
+            this.props.handleLoader(false)
         })
     }
     render() {
@@ -27,7 +31,7 @@ class Home extends Component {
                 <div className="home-body" style={{ width: "100%" }} >
                     {this.state.data.length>0 ? (
                         this.state.data.map(val=>
-                            <Holder updateHolder={this.updateHolder} data={val} token={this.props.token}/>
+                            <Holder handleLoader={this.props.handleLoader} updateHolder={this.updateHolder} data={val} token={this.props.token}/>
                             )
                     ):(
                         <b> No Holders yet </b>

@@ -6,10 +6,12 @@ import 'antd/dist/antd.css'
 import Home from './pages/home'
 import AddHolder from './pages/addholder'
 import Auth from './pages/auth'
+import Loader from './pages/loader'
 class App extends Component {
   state = {
     token: false,
-    addHolder: false
+    addHolder: false,
+    loader: false
   }
   componentDidMount() {
 
@@ -35,12 +37,19 @@ class App extends Component {
     })
   }
 
+  handleLoader = (data)=>{
+    this.setState({
+      loader:data
+    })
+  }
+
   render() {
     return (
       <div className="application-body">
-        {this.state.token && !this.state.addHolder && <Home addHolder={this.addHolder} token={this.state.token} />}
-        {this.state.addHolder && <AddHolder addHolder={this.addHolder} token={this.state.token} />}
-        {!this.state.token && <Auth handleToken={this.handleToken} />}
+        {this.state.loader && <Loader></Loader>}
+        {this.state.token && !this.state.addHolder && <Home handleLoader={this.handleLoader} addHolder={this.addHolder} token={this.state.token} />}
+        {this.state.addHolder && <AddHolder handleLoader={this.handleLoader} addHolder={this.addHolder} token={this.state.token} />}
+        {!this.state.token && <Auth handleLoader={this.handleLoader} handleToken={this.handleToken} />}
       </div>
     );
   }
